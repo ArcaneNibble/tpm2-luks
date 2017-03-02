@@ -1,0 +1,39 @@
+#!/bin/sh
+
+PREREQ=""
+
+prereqs()
+{
+        echo "$PREREQ"
+}
+
+case $1 in
+prereqs)
+        prereqs
+        exit 0
+        ;;
+esac
+
+if [ ! -x /opt/tpmdisk ]; then
+        exit 0
+fi
+
+. /usr/share/initramfs-tools/scripts/functions
+. /usr/share/initramfs-tools/hook-functions
+
+mkdir -p $DESTDIR/opt/tpmdisk
+copy_exec /opt/tpmdisk/create
+copy_exec /opt/tpmdisk/flushcontext
+copy_exec /opt/tpmdisk/load
+copy_exec /opt/tpmdisk/new-disk-key.sh
+copy_exec /opt/tpmdisk/pcrread
+copy_exec /opt/tpmdisk/policymaker
+copy_exec /opt/tpmdisk/policymakerpcr
+copy_exec /opt/tpmdisk/policypcr
+copy_exec /opt/tpmdisk/seal-to-pcrs.sh
+copy_exec /opt/tpmdisk/startauthsession
+copy_exec /opt/tpmdisk/unseal
+copy_exec /opt/tpmdisk/unseal-disk-key.sh
+copy_exec /opt/tpmdisk/unseal-from-pcrs.sh
+copy_file tpmdisk /opt/tpmdisk/sealedkey_priv.bin
+copy_file tpmdisk /opt/tpmdisk/sealedkey_pub.bin
