@@ -12,7 +12,7 @@ dd if=/dev/urandom of="$tmpdir/newkey.bin" bs=1 count=32
 
 # Kill the existing key
 echo "Removing old key..."
-cryptsetup luksKillSlot "$DISK" "TPM_SLOT" -d /keys/rootkey.bin
+cryptsetup luksKillSlot "$DISK" "${TPM_SLOT}" -d /keys/rootkey.bin
 
 # Seal the new key to the TPM
 echo "Sealing key to TPM..."
